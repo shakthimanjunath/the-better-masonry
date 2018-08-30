@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Column from '../Component';
 export default class Masonry extends React.Component {
   data = {};
- manipulateData() {
+  manipulateData() {
     for (let j = 0; j < this.props.noOfColumns; j++) {
       this.data['col' + j] = [];
     }
@@ -27,6 +27,7 @@ export default class Masonry extends React.Component {
   render() {
     return (
       <ScrollView
+        ref={ref => this.props.getRef(ref)}
         onScroll={e => {
           this.props.setOffset(e.nativeEvent.contentOffset.y);
           let paddingToBottom = 0;
@@ -71,13 +72,15 @@ Masonry.propTypes = {
   noOfColumns: PropTypes.number,
   onEndReached: PropTypes.func,
   setOffset: PropTypes.func,
+  getRef: PropTypes.func,
   style: PropTypes.any
 };
 Masonry.defaultProps = {
   data: [],
-  renderItem: () => { },
+  renderItem: () => {},
   noOfColumns: 1,
-  onEndReached: () => { },
-  setOffset: () => { },
-  style: {}
+  onEndReached: () => {},
+  setOffset: () => {},
+  style: {},
+  getRef: () => {}
 };
